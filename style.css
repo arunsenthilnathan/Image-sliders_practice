@@ -1,0 +1,35 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.container {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.button-save {
+    display: block;
+    width: 100px;
+    margin: .5rem;
+}
+
+.contaner {
+    width: 200px;
+    height: 100px;
+    overflow: hidden;
+}
+
+.img-holder {
+    display: flex;
+    width: 200px;
+    height: 100px;
+    
+}
+
+.img-holder img {
+    width: 100%;
+}

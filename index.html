@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <section class="container">
+
+        <input type="file" class="get-img">
+        <button class="button-save" id="save">save</button>
+        <button class="button-save" id="show">show</button>
+        <div class="contaner">
+            <div class="img-holder"></div>
+        </div>
+
+        <button class="btn">left</button>
+        <button class="pbtn">right</button>
+    </section>
+
+    <script>
+        const imgholder = document.querySelector(".img-holder");
+        var save = document.querySelector("#save");
+        var show = document.querySelector("#show");
+        var nextbtn = document.querySelector(".btn");
+        var pervbtn =document.querySelector(".pbtn");
+        const contss = document.querySelector(".container")
+
+
+
+
+        save.addEventListener("click", () => {
+            var imagefile = document.querySelector(".get-img");
+            var reader = new FileReader();
+            var filename = imagefile.files[0].name
+            reader.readAsDataURL(imagefile.files[0])
+            reader.addEventListener("load", function () {
+                var url = this.result
+                window.localStorage.setItem(filename, url)
+            })
+
+        })
+
+        window.addEventListener("load", () => {
+            for (let i = 0; i < window.localStorage.length; i++) {
+                var res = window.localStorage.getItem(window.localStorage.key(i))
+                var image = new Image();
+                image.src = res
+                imgholder.appendChild(image)
+            }
+            var imageslider = document.querySelectorAll(".img-holder img")
+            var len = imageslider.length
+            
+        })
+        let counter = 0;
+        
+            nextbtn.addEventListener("click", () => {
+                var imageslider = document.querySelectorAll(".img-holder img")
+                counter++
+                var len = imageslider.length
+                console.log(len,counter)
+                if(counter<len){
+                var d = imageslider[0].clientWidth
+                console.log(d)
+                imgholder.style.transition = "all .5s ease-in-out"
+                imgholder.style.transform = "translateX(" + (-counter * d) + "px)"
+                } 
+                else {
+                    counter= counter-len
+                    imgholder.style.transform = "translateX(0px)"
+                }
+            })
+            pervbtn.addEventListener("click", () => {
+                counter--
+               
+                console.log(counter)
+                var imageslider = document.querySelectorAll(".img-holder img")
+                var d = imageslider[0].clientWidth
+                var len = imageslider.length
+                console.log(len,counter,d)
+                if(counter==-1){
+                console.log(len)
+                counter=len-1
+                let c = len-1
+                imgholder.style.transition = "all .5s ease-in-out"
+                imgholder.style.transform = "translateX(" + (-c * d) + "px)"
+                }
+                else {
+                var d = imageslider[0].clientWidth
+                console.log(d)
+                imgholder.style.transition = "all .5s ease-in-out"
+                imgholder.style.transform = "translateX(" + (-counter * d) + "px)"
+                }
+            })
+        
+
+
+    </script>
+
+</body>
+
+</html>
